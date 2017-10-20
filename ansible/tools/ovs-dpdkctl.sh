@@ -80,6 +80,7 @@ function gen_config {
     set_value ovs dpdk_interface_driver ${dpdk_interface_driver:-"uio_pci_generic"}
     set_value ovs hugepage_mountpoint ${hugepage_mountpoint:-"/dev/hugepages"}
     set_value ovs physical_port_policy ${ovs_physical_port_policy:-"indexed"}
+    set_value ovs base_virtaddr ${ovs_base_virtaddr:-"0x7fff00000"}
 
     ls -al /sys/class/net/* | awk '$0 ~ /pci/ {n=split($NF,a,"/"); print "\n[" a[n] "]\naddress = " a[n-2]  "\ndriver ="}' >> $CONFIG_FILE
 
@@ -166,7 +167,7 @@ function init_ovs_db {
     other_config:dpdk-mem-channels="$(get_value ovs ovs_mem_channels)" \
     other_config:dpdk-socket-mem="$(get_value ovs ovs_socket_mem)" \
     other_config:dpdk-hugepage-dir="$(get_value ovs hugepage_mountpoint)"  \
-    other_config:dpdk-extra=" --proc-type primary $(get_value ovs pci_whitelist) "
+    other_config:dpdk-extra=" --base-virtaddr "$(get_value ovs base_virtaddr)" --proc-type primary $(get_value ovs pci_whitelist) "
 }
 
 function init_ovs_bridges {
