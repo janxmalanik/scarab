@@ -167,7 +167,7 @@ function init_ovs_db {
     other_config:dpdk-mem-channels="$(get_value ovs ovs_mem_channels)" \
     other_config:dpdk-socket-mem="$(get_value ovs ovs_socket_mem)" \
     other_config:dpdk-hugepage-dir="$(get_value ovs hugepage_mountpoint)"  \
-    other_config:dpdk-extra=" --base-virtaddr "$(get_value ovs base_virtaddr)" --proc-type primary $(get_value ovs pci_whitelist) "
+    other_config:dpdk-extra=" --base-virtaddr $(get_value ovs base_virtaddr) --proc-type primary $(get_value ovs pci_whitelist) "
 }
 
 function init_ovs_bridges {
