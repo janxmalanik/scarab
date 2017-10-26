@@ -73,7 +73,7 @@
 
 
 - name: Ensuring ovsdpdk bridges are properly setup named
-  command: "docker exec openvswitch_db  CONFIG_FILE={{ container_config_directory }}/ovs-dpdkctl.conf {{ container_config_directory }}/ovs-dpdkctl.sh init"
+  command: "docker exec -e \"CONFIG_FILE={{ container_config_directory }}/ovs-dpdkctl.conf\" openvswitch_db {{ container_config_directory }}/ovs-dpdkctl.sh init"
   register: status
   changed_when: status.stdout.find('changed') != -1
   when:
